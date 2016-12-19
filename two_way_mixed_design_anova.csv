@@ -1,0 +1,13 @@
+sample_id, factor:food, factor:drink, q1, q2
+1, banana, cola, 3, 5
+2, banana, cola, 3, 7
+3, banana, cola, 5, 4
+4, banana, milk, 7, 7
+5, banana, milk, 7, 4
+6, banana, milk, 6, 4
+1, apple, cola, 6, 2
+2, apple, cola, 7, 4
+3, apple, cola, 6, 2
+4, apple, milk, 4, 3
+5, apple, milk, 6, 2
+6, apple, milk, 6, 6

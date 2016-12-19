@@ -1,0 +1,45 @@
+# 引数取得
+args <- commandArgs(trailingOnly = T)
+
+# csvファイルの読み込み
+data = read.csv(args[1])
+
+# データの確認
+cat("\n### Data Format ###\n")
+print( str(data) )
+
+# データの要約
+cat("\n### Data Summary ###\n")
+print( summary(data))
+
+# カラム名を取り出す
+columns = colnames(data)
+
+# factorのカラム（独立変数）に名前をつける
+factor = data[, 2]
+
+
+# 分散の等質性の検定とt検定
+for ( i in 3:ncol(data) )
+{
+  cat("\n########################\n")
+  cat(columns[i])
+  cat("\n########################\n")
+
+  # データカラム（従属変数）に名前をつける
+  variable = data[, i]
+
+  # 要約
+  cat("\n--- summary ---\n")
+  print(by(variable, factor, summary))
+  cat("\n--- standard Deviation ---\n")
+  print(by(variable, factor, sd))
+
+  # 分散の等質性の検定
+  cat("\n--- 分散の等質性（ p-value < .05 の場合はt検定はできない） ---\n")
+  print( var.test(variable ~ factor) )
+
+  # t検定
+  cat("\n--- t検定 ---\n")
+  print( t.test( variable ~ factor, var.equal=TRUE) )
+}
