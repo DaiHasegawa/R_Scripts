@@ -15,8 +15,8 @@ print( summary(data))
 # カラム名を取り出す
 columns = colnames(data)
 
-# factorのカラム（独立変数）に名前をつける
-factor = data[, 2]
+# 独立変数に名前をつける
+x = factor(data[, 2])
 
 
 # 分散の等質性の検定とt検定
@@ -27,19 +27,19 @@ for ( i in 3:ncol(data) )
   cat("\n########################\n")
 
   # データカラム（従属変数）に名前をつける
-  variable = data[, i]
+  y = data[, i]
 
   # 要約
   cat("\n--- summary ---\n")
-  print(by(variable, factor, summary))
+  print(by(y, x, summary))
   cat("\n--- standard Deviation ---\n")
-  print(by(variable, factor, sd))
+  print(by(y, x, sd))
 
   # 分散の等質性の検定
   cat("\n--- 分散の等質性（ p-value < .05 の場合はt検定はできない） ---\n")
-  print( var.test(variable ~ factor) )
+  print( var.test(y ~ x) )
 
   # t検定
   cat("\n--- t検定 ---\n")
-  print( t.test( variable ~ factor, var.equal=TRUE) )
+  print( t.test(y ~ x, var.equal=TRUE) )
 }
