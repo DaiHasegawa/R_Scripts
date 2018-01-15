@@ -16,10 +16,10 @@ print( summary(data))
 columns = colnames(data)
 
 # 参加者のカラムに名前をつける
-subject = data[, 1]
+subject = factor(data[, 1])
 
 # factorのカラム（独立変数）に名前をつける
-factor = data[, 2]
+x = factor(data[, 2])
 
 
 # 分散の等質性の検定とt検定
@@ -30,17 +30,17 @@ for ( i in 3:ncol(data) )
   cat("\n########################\n")
 
   # データカラム（従属変数）に名前をつける
-  variable = data[, i]
+  y = data[, i]
 
   # 要約
   cat("\n--- Summary: factor ---\n")
-  print(by(variable, factor, summary))
+  print(by(y, x, summary))
 
-  # ANOVA (within: factor_1, between: factor_2)
+  # ANOVA
   cat("\n-- ANOVA ---\n")
-  print(summary(aov(variable ~ factor + subject)))
+  print(summary(aov(y ~ x + Error(subject/x))))
 
   # 多重検定
   cat("\n-- 多重検定 ---\n")
-  print(pairwise.t.test(variable, factor, p.adjust.method="bonferroni", paired=TRUE))
+  print(pairwise.t.test(y, x, p.adjust.method="bonferroni", paired=TRUE))
 }
